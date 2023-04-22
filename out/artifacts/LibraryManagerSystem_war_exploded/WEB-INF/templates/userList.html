@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>超市账单管理系统</title>
+    <link rel="stylesheet" href="../../css/public.css"/>
+    <link rel="stylesheet" href="../../css/style.css"/>
+</head>
+<body>
+<!--头部-->
+<header class="publicHeader">
+    <h1>超市账单管理系统</h1>
+
+    <div class="publicHeaderR">
+        <p><span>下午好！</span><span style="color: #fff21b" th:text="${session.username}"> Admin</span> , 欢迎你！</p>
+        <a href="/index">退出</a>
+    </div>
+</header>
+<!--时间-->
+<section class="publicTime">
+    <span id="time">2015年1月1日 11:11  星期一</span>
+    <a href="#">温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</a>
+</section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left">
+        <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
+        <nav>
+            <ul class="list">
+                <li><a href="/showbill">账单管理</a></li>
+                <li><a href="/showProvider">供应商管理</a></li>
+                <li id="active"><a href="/showUser">用户管理</a></li>
+                <li><a href="/password">密码修改</a></li>
+                <li><a href="/index">退出系统</a></li>
+            </ul>
+        </nav>
+    </div>
+        <div class="right">
+            <div class="location">
+                <strong>你现在所在的位置是:</strong>
+                <span>用户管理页面</span>
+            </div>
+            <div class="search">
+                <form action="/showUser" method="get">
+                    <input type="text" name="condition" th:value="${condition}" placeholder="请输入查询信息"/>
+                    <input type="submit" value="查询"/>
+                    <a href="/add">添加用户</a>
+                </form>
+            </div>
+            <!--用户-->
+            <table class="providerTable" cellpadding="0" cellspacing="0">
+                <tr class="firstTr">
+                    <th width="10%">用户编码</th>
+                    <th width="20%">用户名称</th>
+                    <th width="10%">性别</th>
+                    <th width="10%">年龄</th>
+                    <th width="10%">电话</th>
+                    <th width="10%">用户类型</th>
+                    <th width="30%">操作</th>
+                </tr>
+                <tr th:each="user:${pageInfo.list}">
+                    <td th:text="${user.usercode}">hanlu</td>
+                    <td th:text="${user.username}">韩露</td>
+                    <td th:text="${user.gender}==1 ? '女':'男'">女</td>
+                    <td th:text="${user.age}">20</td>
+                    <td th:text="${user.phone}">15918230478</td>
+                    <td th:text="${user.rolename}">经理</td>
+                    <td>
+                        <a href="/viewUser" th:href="@{/viewUser(id=${user.id})}"><img src="../../images/read.png" alt="查看" title="查看"/></a>
+                        <a href="userUpdate.html" th:href="@{/updateView(id=${user.id})}"><img src="../../images/xiugai.png" alt="修改" title="修改"/></a>
+                        <a href="javascript:void(0)" class="removeUser" th:onclick="|javascript:a('${user.id}')|"><img src="../../images/schu.png" alt="删除" title="删除"/></a>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div>
+                共<span th:text="${pageInfo.total}">4</span>条记录，<span th:text="${pageInfo.pageNum}">1</span>/<span th:text="${pageInfo.pages}">4</span>
+                <a th:if="${pageInfo.pageNum}==1" href="javascript:void(0)">上一页</a>
+                <a href="#" th:if="${pageInfo.pageNum}!=1"
+                   th:href="@{/showUser(pageNum=${pageInfo.pageNum}-1,condition=${condition})}">上一页</a>
+                <span th:each="i:${#numbers.sequence(1,pageInfo.pages)}">
+                    <a th:href="@{/showUser(pageNum=${i},name=${name})}" th:text="${i}">1</a>
+                </span>
+                <a href="#" th:if="${pageInfo.pageNum}!=${pageInfo.pages}"
+                   th:href="@{/showUser(pageNum=${pageInfo.pageNum}+1,condition=${condition})}">下一页</a>
+                <a th:if="${pageInfo.pageNum}==${pageInfo.pages}" href="javascript:void(0)">下一页</a>
+            </div>
+
+        </div>
+    </section>
+
+<!--点击删除按钮后弹出的页面-->
+<div class="zhezhao"></div>
+<div class="remove" id="removeUse">
+    <div class="removerChid">
+        <h2>提示</h2>
+        <div class="removeMain">
+            <p>你确定要删除该用户吗？</p>
+            <a href="javascript:void(0)" id="yes" th:onclick="|javascript:b()|">确定</a>
+            <a href="#" id="no">取消</a>
+        </div>
+    </div>
+</div>
+
+    <footer class="footer">
+        版权归多人成行
+    </footer>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/js.js"></script>
+<script type="text/javascript">
+    var id;
+    function a(id){
+        ids=id;
+    }
+    function b(){
+        window.location.href="/deleteUser?id="+ids;
+    }
+</script>
+
+</body>
+</html>

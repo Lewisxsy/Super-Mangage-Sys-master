@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="../../css/style.css"/>
+</head>
+<body class="login_bg">
+<section class="loginBox">
+    <header class="loginHeader">
+        <h1>超市账单管理系统注册</h1>
+    </header>
+    <section class="loginCont">
+        <form action="/register">
+            <table>
+                <tr>
+                    <td>用户名:</td>
+                    <td><input type="text" name="username"/></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" name="userpassword"/></td>
+                </tr>
+                <tr>
+                    <td>用户身份:</td>
+                    <td><input type="radio" name="userrole" value="1">系统管理员</td>
+                    <td><input type="radio" name="userrole" value="2"checked>经理</td>
+                    <td><input type="radio" name="userrole" value="3">普通员工</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="submit" value="注册" /></td>
+                </tr>
+            </table>
+        </form>
+    </section>
+</section>
+</body>
+</html>
