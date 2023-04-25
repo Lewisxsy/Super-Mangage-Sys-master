@@ -18,7 +18,7 @@ JavaWeb项目 超市订单管理系统
 超市管理系统(smbms)作为每个计算机专业的大学生都是一个很好的练手项目，逻辑层次分明，基础功能包括用户的登录和注销，用户和供应商以及订单信息的增删查改的基础功能。可以帮助我们更好的加深理解三层架构的理念，本项目作为纯Java Web版，不涉及Spring和SpringBoot的知识，就是帮助我们从底层和从源代码开始理解，为以后的微服务和作铺垫。
 
 
-## 3.数据库准备工作
+## 2.数据库准备工作
 
 打开mySQL，输入以下数据库创建语句。
 
@@ -128,7 +128,7 @@ CREATE TABLE `smbms_user` (
 INSERT  INTO `smbms_user`(`id`,`userCode`,`userName`,`userPassword`,`gender`,`birthday`,`phone`,`address`,`userRole`,`createdBy`,`creationDate`,`modifyBy`,`modifyDate`) VALUES (1,'admin','系统管理员','1234567',1,'1983-10-10','13688889999','北京市海淀区成府路207号',1,1,'2013-03-21 16:52:07',NULL,NULL),(2,'liming','李明','0000000',2,'1983-12-10','13688884457','北京市东城区前门东大街9号',2,1,'2014-12-31 19:52:09',NULL,NULL),(5,'hanlubiao','韩路彪','0000000',2,'1984-06-05','18567542321','北京市朝阳区北辰中心12号',2,1,'2014-12-31 19:52:09',NULL,NULL),(6,'zhanghua','张华','0000000',1,'1983-06-15','13544561111','北京市海淀区学院路61号',3,1,'2013-02-11 10:51:17',NULL,NULL),(7,'wangyang','王洋','0000000',2,'1982-12-31','13444561124','北京市海淀区西二旗辉煌国际16层',3,1,'2014-06-11 19:09:07',NULL,NULL),(8,'zhaoyan','赵燕','0000000',1,'1986-03-07','18098764545','北京市海淀区回龙观小区10号楼',3,1,'2016-04-21 13:54:07',NULL,NULL),(10,'sunlei','孙磊','0000000',2,'1981-01-04','13387676765','北京市朝阳区管庄新月小区12楼',3,1,'2015-05-06 10:52:07',NULL,NULL),(11,'sunxing','孙兴','0000000',2,'1978-03-12','13367890900','北京市朝阳区建国门南大街10号',3,1,'2016-11-09 16:51:17',NULL,NULL),(12,'zhangchen','张晨','0000000',1,'1986-03-28','18098765434','朝阳区管庄路口北柏林爱乐三期13号楼',3,1,'2016-08-09 05:52:37',1,'2016-04-14 14:15:36'),(13,'dengchao','邓超','0000000',2,'1981-11-04','13689674534','北京市海淀区北航家属院10号楼',3,1,'2016-07-11 08:02:47',NULL,NULL),(14,'yangguo','杨过','0000000',2,'1980-01-01','13388886623','北京市朝阳区北苑家园茉莉园20号楼',3,1,'2015-02-01 03:52:07',NULL,NULL),(15,'zhaomin','赵敏','0000000',1,'1987-12-04','18099897657','北京市昌平区天通苑3区12号楼',2,1,'2015-09-12 12:02:12',NULL,NULL);
 ```
 
-## 4.创建Maven Web项目
+## 3.创建Maven Web项目
 
 通过webapp模板创建。
 
@@ -172,10 +172,6 @@ INSERT  INTO `smbms_user`(`id`,`userCode`,`userName`,`userPassword`,`gender`,`bi
 </dependencies>
 ```
 
-创建项目包结构：
-
-![image-20211210135413620](https://gitee.com/grant1499/blog-pic/raw/master/img/202112101354761.png)
-
 `dao`层用于操作数据库的数据，将数据库的连接，关闭以及增删改查等方法封装起来。
 
 `pojo`是根据数据库中的字段信息编写的实体类。
@@ -195,7 +191,7 @@ DAO (DataAccessobjects 数据存取对象)是指位于业务逻辑和持久化�
 - 3、实体类：用于存放与传输对象数据。
 - 4、数据库连接和关闭工具类： 避免了数据库连接和关闭代码的重复使用，方便修改。
 
-## 5.建立实体类
+## 4.建立实体类
 
 就是ORM映射思想 将数据库表和实体类一 一对应。（表-->类映射）
 
@@ -610,9 +606,9 @@ public class Bill {
 }
 ```
 
-## 6.编写基础公共类
+## 5.编写基础公共类
 
-### 6.1 数据库配置文件
+### 5.1 数据库配置文件
 
 在`resources`之下新建`db.properties`：
 
@@ -623,7 +619,7 @@ username=root
 password=xxxxx        // 数据库名和密码自己改一下
 ```
 
-### 6.2 在Dao层编写操作数据库的公共类
+### 5.2 在Dao层编写操作数据库的公共类
 
 在`dao` 下新建`BaseDao.java`：
 
@@ -728,7 +724,7 @@ public class BaseDao {
 }
 ```
 
-## 7.编写过滤器处理中文乱码
+## 6.编写过滤器处理中文乱码
 
 在`filter`下新建`CharacterENcodingFilter.java`：
 
@@ -771,11 +767,11 @@ public class CharacterEncodingFilter implements Filter {
 </filter-mapping>
 ```
 
-## 8.导入前端资源文件
+## 7.导入前端资源文件
 
-记得是在webapp下面：
+在webapp下面
 
-## 9.编写登录模块
+## 8.编写登录模块
 
 编写`login.jsp`：
 
@@ -829,7 +825,7 @@ public class CharacterEncodingFilter implements Filter {
 </welcome-file-list>
 ```
 
-### 9.1 编写dao层用户登录的接口UserDao
+### 8.1 编写dao层用户登录的接口UserDao
 
 这一步的主要功能就是从首页获取用户输入的名称和密码，与数据库中的数据进行对比。
 
@@ -845,7 +841,7 @@ public interface UserDao {
 }
 ```
 
-### 9.2 编写接口UserDao的实现类
+### 8.2 编写接口UserDao的实现类
 
 `UserDaoImpl.java`：
 
@@ -900,7 +896,7 @@ public class UserDaoImpl implements UserDao {
 }
 ```
 
-### 9.3 编写业务层接口与实现类
+### 8.3 编写业务层接口与实现类
 
 在`service`包下新建`user`包，然后在下面新建`UserService`接口：
 
@@ -957,7 +953,7 @@ public class UserServiceImpl implements UserService{
 }
 ```
 
-## 10.编写用户登录的Servlet
+## 9.编写用户登录的Servlet
 
 在`util`包之下新建`Constant`类，存放用户登录状态字符串。
 
@@ -1009,7 +1005,7 @@ public class LoginServlet extends HttpServlet {
 }
 ```
 
-别忘了在`web.xml`中注册servlet：
+在`web.xml`中注册servlet：
 
 ```xml
 <servlet>
@@ -1023,7 +1019,7 @@ public class LoginServlet extends HttpServlet {
 ```
 
 
-11.编写用户注销登录的Servlet
+10.编写用户注销登录的Servlet
 
 在`user`包，建立`LogoutServlet.java`：
 
@@ -1051,7 +1047,7 @@ public class LogoutServlet extends HttpServlet {
 }
 ```
 
-别忘了注册一下注销的servlet：
+注册一下注销的servlet：
 
 ```xml
 <servlet>
@@ -1240,7 +1236,7 @@ public class UserServlet extends HttpServlet {
 
 ## 13.使用Ajax优化密码修改
 
-导阿里巴巴的fastjson依赖：
+导入阿里巴巴的fastjson依赖：
 
 ```xml
 <!--      阿里巴巴的fastjson:用于转换json格式-->
@@ -1353,7 +1349,7 @@ public class UserServlet extends HttpServlet {
 }
 ```
 
-注意：前面写用户首页登录逻辑时并没有验证密码是否与用户名一致，可以自己加上验证密码功能，很简单。
+注意：前面写用户首页登录逻辑时并没有验证密码是否与用户名一致，可以自己加上验证密码功能。
 
 ## 14.编写用户管理模块
 
@@ -2086,8 +2082,6 @@ private void modifyUser(HttpServletRequest request, HttpServletResponse response
 思路和前面类似，从底层往上写。
 
 这里直接利用修改用户用到的getUserById方法，之前修改用户用到两个方法，先查看原有用户信息，然后再修改用户信息。
-
-这里就不用再写了。
 
 只要用一个参数将修改用户信息和查看用户信息的操作分别重定向到对应的页面就行。
 
